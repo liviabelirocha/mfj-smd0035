@@ -70,7 +70,7 @@ _C5_
 100010 -> 34 ✅
 ```
 
-### **b) Tome o resultado dos itens (a) e (c) da questão anterior. Subtraia o primeiro do segundo**
+#### **b) Tome o resultado dos itens (a) e (c) da questão anterior. Subtraia o primeiro do segundo**
 
 ```
   11010101
@@ -79,7 +79,7 @@ _C5_
   00010000
 ```
 
-### **c) Quanto é 1102(3) + 0121(3)?**
+#### **c) Quanto é 1102(3) + 0121(3)?**
 
 ```
   1102
@@ -93,3 +93,13 @@ _C5_
 ```
 (2000)3 = (2 × 3^3) + (0 × 3^2) + (0 × 3^1) + (0 × 3^0) = 54
 ```
+
+### **Questão 03**
+
+#### **a) O que é a representação binária por complemento de 2? Para que serve?**
+É a representação binária que abrange números negativos. Serve para representar números negativos.
+
+#### **b) O que é overflow? O que é underflow? Como esses fenômenos podem interferir na vida de um programador de jogos?**
+1. Overflow: Quando o número é maior que o maior número que pode ser representado naquela base numérica.
+2. Underflow: Quando o número é menor que o menor número que pode ser representado naquela base numérica.
+3. Quando ocorre um overflow, pode acontecer de o número virar o menor possível, por exemplo, uma base é composta de [1, 2, 3], caso o número seja 3 e ele acabe aumentando, ocorre um overflow e ele vira 1, isso pode dar problema em jogos que dependem de um número parar funcionar. Um sistema de vidas por exemplo, um inteiro de 1 byte pode armazenar 0 - 255, caso ele chegue a 256, ocorre overflow e ele irá virar um 0, fazendo com que ocorra game over.
