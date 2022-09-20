@@ -28,7 +28,10 @@ function draw() {
   arrow(0, 0, arrowX, arrowY)
   
   colore(0,0,0)
-  drawText(`angle: ${angle(arrowX, arrowY, mouseXC, mouseYC)}`, -width / 2 + 10, height / 2 - 20)  
+  drawText(`angle: ${angle(arrowX, arrowY, mouseXC, mouseYC)}`, -width / 2 + 10, height / 2 - 20)
+  
+  noFill();
+  arc(0, 0, 50, 50, atan2(mouseYC, mouseXC), atan2(arrowY, arrowX))
 }
 
 /* my code */
