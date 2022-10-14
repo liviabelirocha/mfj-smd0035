@@ -1,9 +1,9 @@
 import P5 from "p5";
-import P5Color from "../Color";
+import Helpers from "../helpers";
 
 interface Options {
-  color?: P5Color;
   weight?: number;
+  color?: { c1: number; c2?: number; c3?: number; c4?: number };
 }
 
 export default class Point {
@@ -13,6 +13,7 @@ export default class Point {
   private _y: number;
 
   private _options: Options;
+  private _helper: Helpers;
 
   constructor(p5: P5, x: number, y: number, options?: Options) {
     this._p5 = p5;
@@ -20,6 +21,7 @@ export default class Point {
     this._y = y;
 
     this._options = options;
+    this._helper = new Helpers(p5);
   }
 
   getCoordinates() {
@@ -42,7 +44,13 @@ export default class Point {
   draw() {
     const { color, weight } = this._options;
 
-    color ? color.colore() : new P5Color(0).colore();
+    this._helper.colore(
+      color?.c1 ?? 0,
+      color?.c2 ?? null,
+      color?.c3 ?? null,
+      color?.c4 ?? null
+    );
+    this._p5.fill(0);
     this._p5.strokeWeight(weight ?? 1);
     this._p5.point(this._x, this._y);
   }
