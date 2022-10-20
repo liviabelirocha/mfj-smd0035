@@ -1,14 +1,20 @@
 import P5 from "p5";
 
 import Point from "./geometry/Point";
+import Vector from "./geometry/Vector";
+
+interface Options {
+  mouse?: Point;
+  drawCoordinates?: boolean;
+}
 
 export default class Helpers {
   private _p5: P5;
-  _mouse: Point;
+  _options: Options;
 
-  constructor(p5: P5, mouse?: Point) {
+  constructor(p5: P5, options?: Options) {
     this._p5 = p5;
-    this._mouse = mouse;
+    this._options = options;
   }
 
   goCartesian() {
@@ -20,12 +26,30 @@ export default class Helpers {
     p5.background(255);
     p5.strokeWeight(1);
 
-    this._mouse.setCoordinates(p5.mouseX - width / 2, height / 2 - p5.mouseY);
+    const { mouse, drawCoordinates } = this._options;
 
-    // this._color.colore(128, 0, 0);
-    // this.arrow(0, height / 2, width, height / 2);
-    // this._color.colore(0, 128, 0);
-    // this.arrow(width / 2, height, width / 2, 0);
+    mouse.setCoordinates(p5.mouseX - width / 2, height / 2 - p5.mouseY);
+
+    if (drawCoordinates) {
+      new Vector(
+        p5,
+        new Point(p5, 0, height / 2),
+        new Point(p5, width, height / 2),
+        {
+          isArrow: true,
+          color: { c1: 128, c2: 0, c3: 0 },
+        }
+      ).draw();
+      new Vector(
+        p5,
+        new Point(p5, width / 2, height),
+        new Point(p5, width / 2, 0),
+        {
+          isArrow: true,
+          color: { c1: 0, c2: 128, c3: 0 },
+        }
+      ).draw();
+    }
 
     p5.translate(width / 2, height / 2);
     p5.scale(1, -1, 1);

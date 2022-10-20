@@ -9,7 +9,7 @@ import "./styles.scss";
 const sketch = (p5: P5) => {
   const mouse = new Point(p5, 0, 0);
 
-  const helpers = new Helpers(p5, mouse);
+  const helpers = new Helpers(p5, { mouse, drawCoordinates: true });
 
   p5.setup = () => {
     const canvas = p5.createCanvas(400, 400);
