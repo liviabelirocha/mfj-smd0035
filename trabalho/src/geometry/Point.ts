@@ -28,6 +28,14 @@ export default class Point {
     return { x: this._x, y: this._y };
   }
 
+  getX() {
+    return this._x;
+  }
+
+  getY() {
+    return this._y;
+  }
+
   setX(x: number) {
     this._x = x;
   }
@@ -41,17 +49,40 @@ export default class Point {
     this.setY(y);
   }
 
+  sub(p: Point) {
+    return new Point(this._p5, this._x - p.getX(), this._y - p.getY());
+  }
+
+  cross(p: Point) {
+    return this._x * p.getY() - this._y * p.getX();
+  }
+
+  dot(p: Point) {
+    return this._x * p.getX() + this._y * p.getY();
+  }
+
+  madd(p: Point, s: number) {
+    return new Point(this._p5, this._x + s * p.getX(), this._y + s * p.getY());
+  }
+
+  lerp(B: Point, t: number) {
+    return this.madd(B.sub(this), t);
+  }
+
   draw() {
     const { color, weight } = this._options;
+    const p5 = this._p5;
 
+    p5.push();
     this._helper.colore(
       color?.c1 ?? 0,
       color?.c2 ?? null,
       color?.c3 ?? null,
       color?.c4 ?? null
     );
-    this._p5.fill(0);
-    this._p5.strokeWeight(weight ?? 1);
-    this._p5.point(this._x, this._y);
+    p5.fill(0);
+    p5.strokeWeight(weight ?? 1);
+    p5.point(this._x, this._y);
+    p5.pop();
   }
 }
