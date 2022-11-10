@@ -51,6 +51,10 @@ export default class Point {
     this.setY(y);
   }
 
+  sub(p: Point) {
+    return new Vector(this._p5, this._x - p.getX(), this._y - p.getY());
+  }
+
   draw() {
     const { color, weight } = this._options;
     const p5 = this._p5;

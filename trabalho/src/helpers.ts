@@ -73,20 +73,4 @@ export default class Helpers {
       p5.stroke(c1, c1, c1, c2);
     }
   }
-
-  sub(p1: Point, p2: Point) {
-    return new Vector(this._p5, p1.getX() - p2.getX(), p1.getY() - p2.getY());
-  }
-
-  lerp(A: Point, B: Point, t: number) {
-    return this.madd(A, this.sub(B, A), t);
-  }
-
-  madd(A: Point, B: Vector, s: number) {
-    return new Vector(
-      this._p5,
-      A.getX() + s * B.getX(),
-      A.getY() + s * B.getY()
-    );
-  }
 }

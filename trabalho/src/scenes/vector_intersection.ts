@@ -37,15 +37,15 @@ const draw = (
   p5.text("A", A.getX(), A.getY());
   p5.text("B", B.getX(), B.getY());
 
-  const AB = helpers.sub(B, A);
-  const AC = helpers.sub(C, A);
-  const AD = helpers.sub(D, A);
+  const AB = B.sub(A);
+  const AC = C.sub(A);
+  const AD = D.sub(A);
 
   if (AB.cross(AC) * AB.cross(AD) > 0) return;
 
-  const CD = helpers.sub(D, C);
-  const CA = helpers.sub(A, C);
-  const CB = helpers.sub(B, C);
+  const CD = D.sub(C);
+  const CA = A.sub(C);
+  const CB = B.sub(C);
 
   if (CD.cross(CA) * CD.cross(CB) > 0) return;
 
@@ -53,7 +53,10 @@ const draw = (
   const NdotAB = N.dot(AB);
   const NdotAC = N.dot(AC);
   const t = NdotAC / NdotAB;
-  const Pt = helpers.lerp(A, B, t);
+  const Pt = new Vector(p5, A.getX(), A.getY()).lerp(
+    new Vector(p5, B.getX(), B.getY()),
+    t
+  );
   p5.circle(Pt.getX(), Pt.getY(), 6);
 
   p5.text(`t = ${t.toFixed(3)}`, 5, 18);

@@ -1,5 +1,6 @@
 import P5 from "p5";
 import Helpers from "../helpers";
+import Line from "./Line";
 import Point from "./Point";
 
 interface Options {
@@ -68,15 +69,15 @@ export default class Vector {
   }
 
   madd(v: Vector, s: number) {
-    return new Vector(this._p5, this._x + s * v.getX(), this._y + s * v.getY());
+    return new Point(this._p5, this._x + s * v.getX(), this._y + s * v.getY());
   }
 
-  draw(o: Point) {
+  draw(o?: Point) {
     const p5 = this._p5;
+    if (!o) o = new Point(p5, 0, 0);
     const { x: ox, y: oy } = o.getCoordinates();
 
-    p5.line(ox, oy, this._x, this._y);
     p5.circle(ox, oy, 6);
-    p5.circle(this._x, this._y, 6);
+    new Line(p5, o, new Point(p5, this._x, this._y, this._options));
   }
 }
