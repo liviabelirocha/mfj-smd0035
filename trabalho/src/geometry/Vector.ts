@@ -3,81 +3,80 @@ import Helpers from "../helpers";
 import Point from "./Point";
 
 interface Options {
-  isArrow?: boolean;
+  weight?: number;
   color?: { c1: number; c2?: number; c3?: number; c4?: number };
+  w?: number;
 }
 
 export default class Vector {
   private _p5: P5;
 
-  private _a: Point;
-  private _b: Point;
+  private _x: number;
+  private _y: number;
 
-  private _options: Options;
   private _helper: Helpers;
+  private _options: Options;
 
-  constructor(p5: P5, a: Point, b: Point, options?: Options) {
+  constructor(p5: P5, x: number, y: number, options?: Options) {
     this._p5 = p5;
+    this._x = x;
+    this._y = y;
 
-    this._a = a;
-    this._b = b;
-
-    this._options = options;
     this._helper = new Helpers(p5);
-  }
-
-  getA() {
-    return this._a.getCoordinates();
-  }
-
-  getB() {
-    return this._b.getCoordinates();
+    this._options = options;
   }
 
   getCoordinates() {
-    return { a: this.getA(), b: this.getB() };
+    return { x: this._x, y: this._y };
   }
 
-  setA(x: number, y: number) {
-    this._a.setCoordinates(x, y);
+  getX() {
+    return this._x;
   }
 
-  setB(x: number, y: number) {
-    this._b.setCoordinates(x, y);
+  getY() {
+    return this._y;
   }
 
-  draw() {
-    const { color, isArrow } = this._options;
+  setX(x: number) {
+    this._x = x;
+  }
 
-    this._helper.colore(
-      color?.c1 ?? 0,
-      color?.c2 ?? null,
-      color?.c3 ?? null,
-      color?.c4 ?? null
-    );
+  setY(y: number) {
+    this._y = y;
+  }
 
-    const { a, b } = this.getCoordinates();
-    const { x: ax, y: ay } = a;
-    const { x: bx, y: by } = b;
+  setCoordinates(x: number, y: number) {
+    this.setX(x);
+    this.setY(y);
+  }
 
-    this._p5.line(ax, ay, bx, by);
+  sub(v: Vector) {
+    return new Vector(this._p5, this._x - v.getX(), this._y - v.getY());
+  }
 
-    if (isArrow) {
-      const dx = bx - ax,
-        dy = by - ay;
-      const le = this._p5.sqrt(dx * dx + dy * dy);
-      const vx = dx / le,
-        vy = dy / le;
-      const ux = -vy;
-      const uy = vx;
-      this._p5.triangle(
-        bx,
-        by,
-        bx - 5 * vx + 2 * ux,
-        by - 5 * vy + 2 * uy,
-        bx - 5 * vx - 2 * ux,
-        by - 5 * vy - 2 * uy
-      );
-    }
+  cross(v: Vector) {
+    return this._x * v.getY() - this._y * v.getX();
+  }
+
+  dot(v: Vector) {
+    return this._x * v.getX() + this._y * v.getY();
+  }
+
+  lerp(B: Vector, t: number) {
+    return this.madd(B.sub(this), t);
+  }
+
+  madd(v: Vector, s: number) {
+    return new Vector(this._p5, this._x + s * v.getX(), this._y + s * v.getY());
+  }
+
+  draw(o: Point) {
+    const p5 = this._p5;
+    const { x: ox, y: oy } = o.getCoordinates();
+
+    p5.line(ox, oy, this._x, this._y);
+    p5.circle(ox, oy, 6);
+    p5.circle(this._x, this._y, 6);
   }
 }

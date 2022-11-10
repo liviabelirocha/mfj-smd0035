@@ -23,7 +23,7 @@ const sketch = (p5: P5) => {
   };
 
   p5.draw = () => {
-    draw(p5, { points });
+    draw(p5, { points }, { helpers });
   };
 
   p5.mousePressed = () => {

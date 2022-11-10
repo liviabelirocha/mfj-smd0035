@@ -1,7 +1,8 @@
 import P5 from "p5";
 
-import Point from "./geometry/Point";
 import Vector from "./geometry/Vector";
+import Line from "./geometry/Line";
+import Point from "./geometry/Point";
 
 interface Options {
   mouse?: Point;
@@ -31,7 +32,7 @@ export default class Helpers {
     mouse.setCoordinates(p5.mouseX - width / 2, height / 2 - p5.mouseY);
 
     if (drawCoordinates) {
-      new Vector(
+      new Line(
         p5,
         new Point(p5, 0, height / 2),
         new Point(p5, width, height / 2),
@@ -40,7 +41,7 @@ export default class Helpers {
           color: { c1: 128, c2: 0, c3: 0 },
         }
       ).draw();
-      new Vector(
+      new Line(
         p5,
         new Point(p5, width / 2, height),
         new Point(p5, width / 2, 0),
@@ -71,5 +72,21 @@ export default class Helpers {
       p5.fill(c1, c1, c1, c2);
       p5.stroke(c1, c1, c1, c2);
     }
+  }
+
+  sub(p1: Point, p2: Point) {
+    return new Vector(this._p5, p1.getX() - p2.getX(), p1.getY() - p2.getY());
+  }
+
+  lerp(A: Point, B: Point, t: number) {
+    return this.madd(A, this.sub(B, A), t);
+  }
+
+  madd(A: Point, B: Vector, s: number) {
+    return new Vector(
+      this._p5,
+      A.getX() + s * B.getX(),
+      A.getY() + s * B.getY()
+    );
   }
 }

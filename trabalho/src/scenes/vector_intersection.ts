@@ -1,5 +1,7 @@
 import p5 from "p5";
 import Point from "../geometry/Point";
+import Vector from "../geometry/Vector";
+import Helpers from "../helpers";
 
 const variables = () => {
   const points: Point[] = [];
@@ -7,7 +9,11 @@ const variables = () => {
   return { points };
 };
 
-const draw = (p5: p5, { points }: { points: Point[] }) => {
+const draw = (
+  p5: p5,
+  { points }: { points: Point[] },
+  { helpers }: { helpers: Helpers }
+) => {
   p5.background(220);
 
   if (points.length === 0) return;
@@ -31,23 +37,23 @@ const draw = (p5: p5, { points }: { points: Point[] }) => {
   p5.text("A", A.getX(), A.getY());
   p5.text("B", B.getX(), B.getY());
 
-  const AB = B.sub(A);
-  const AC = C.sub(A);
-  const AD = D.sub(A);
+  const AB = helpers.sub(B, A);
+  const AC = helpers.sub(C, A);
+  const AD = helpers.sub(D, A);
 
   if (AB.cross(AC) * AB.cross(AD) > 0) return;
 
-  const CD = D.sub(C);
-  const CA = A.sub(C);
-  const CB = B.sub(C);
+  const CD = helpers.sub(D, C);
+  const CA = helpers.sub(A, C);
+  const CB = helpers.sub(B, C);
 
   if (CD.cross(CA) * CD.cross(CB) > 0) return;
 
-  const N = new Point(p5, -CD.getY(), CD.getX());
+  const N = new Vector(p5, -CD.getY(), CD.getX());
   const NdotAB = N.dot(AB);
   const NdotAC = N.dot(AC);
   const t = NdotAC / NdotAB;
-  const Pt = A.lerp(B, t);
+  const Pt = helpers.lerp(A, B, t);
   p5.circle(Pt.getX(), Pt.getY(), 6);
 
   p5.text(`t = ${t.toFixed(3)}`, 5, 18);

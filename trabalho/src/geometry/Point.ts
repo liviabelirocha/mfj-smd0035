@@ -1,9 +1,11 @@
 import P5 from "p5";
 import Helpers from "../helpers";
+import Vector from "./Vector";
 
 interface Options {
   weight?: number;
   color?: { c1: number; c2?: number; c3?: number; c4?: number };
+  w?: number;
 }
 
 export default class Point {
@@ -47,26 +49,6 @@ export default class Point {
   setCoordinates(x: number, y: number) {
     this.setX(x);
     this.setY(y);
-  }
-
-  sub(p: Point) {
-    return new Point(this._p5, this._x - p.getX(), this._y - p.getY());
-  }
-
-  cross(p: Point) {
-    return this._x * p.getY() - this._y * p.getX();
-  }
-
-  dot(p: Point) {
-    return this._x * p.getX() + this._y * p.getY();
-  }
-
-  madd(p: Point, s: number) {
-    return new Point(this._p5, this._x + s * p.getX(), this._y + s * p.getY());
-  }
-
-  lerp(B: Point, t: number) {
-    return this.madd(B.sub(this), t);
   }
 
   draw() {
