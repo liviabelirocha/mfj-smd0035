@@ -1,11 +1,10 @@
 import P5 from "p5";
 
-import Vector from "./geometry/Vector";
 import Line from "./geometry/Line";
-import Point from "./geometry/Point";
+import Vector2 from "./geometry/Vector2";
 
 interface Options {
-  mouse?: Point;
+  mouse?: Vector2;
   drawCoordinates?: boolean;
 }
 
@@ -34,8 +33,8 @@ export default class Helpers {
     if (drawCoordinates) {
       new Line(
         p5,
-        new Point(p5, 0, height / 2),
-        new Point(p5, width, height / 2),
+        new Vector2(p5, 0, height / 2),
+        new Vector2(p5, width, height / 2),
         {
           isArrow: true,
           color: { c1: 128, c2: 0, c3: 0 },
@@ -43,8 +42,8 @@ export default class Helpers {
       ).draw();
       new Line(
         p5,
-        new Point(p5, width / 2, height),
-        new Point(p5, width / 2, 0),
+        new Vector2(p5, width / 2, height),
+        new Vector2(p5, width / 2, 0),
         {
           isArrow: true,
           color: { c1: 0, c2: 128, c3: 0 },

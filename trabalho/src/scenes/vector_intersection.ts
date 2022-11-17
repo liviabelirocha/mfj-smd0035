@@ -1,17 +1,16 @@
 import p5 from "p5";
-import Point from "../geometry/Point";
-import Vector from "../geometry/Vector";
+import Vector2 from "../geometry/Vector2";
 import Helpers from "../helpers";
 
 const variables = () => {
-  const points: Point[] = [];
+  const points: Vector2[] = [];
 
   return { points };
 };
 
 const draw = (
   p5: p5,
-  { points }: { points: Point[] },
+  { points }: { points: Vector2[] },
   { helpers }: { helpers: Helpers }
 ) => {
   p5.background(220);
@@ -22,9 +21,9 @@ const draw = (
     const pi = points[i];
     const pj = points[i + 1];
 
-    p5.line(pi.getX(), pi.getY(), pj.getX(), pj.getY());
-    pi.draw();
-    pj.draw();
+    p5.line(pi._x, pi._y, pj._x, pj._y);
+    pi.drawPoint();
+    pj.drawPoint();
   }
 
   if (points.length / 2 < 2) return;
@@ -34,8 +33,8 @@ const draw = (
   const C = points[2];
   const D = points[3];
 
-  p5.text("A", A.getX(), A.getY());
-  p5.text("B", B.getX(), B.getY());
+  p5.text("A", A._x, A._y);
+  p5.text("B", B._x, B._y);
 
   const AB = B.sub(A);
   const AC = C.sub(A);
@@ -49,22 +48,19 @@ const draw = (
 
   if (CD.cross(CA) * CD.cross(CB) > 0) return;
 
-  const N = new Vector(p5, -CD.getY(), CD.getX());
+  const N = new Vector2(p5, -CD._y, CD._x);
   const NdotAB = N.dot(AB);
   const NdotAC = N.dot(AC);
   const t = NdotAC / NdotAB;
-  const Pt = new Vector(p5, A.getX(), A.getY()).lerp(
-    new Vector(p5, B.getX(), B.getY()),
-    t
-  );
-  p5.circle(Pt.getX(), Pt.getY(), 6);
+  const Pt = new Vector2(p5, A._x, A._y).lerp(new Vector2(p5, B._x, B._y), t);
+  p5.circle(Pt._x, Pt._y, 6);
 
   p5.text(`t = ${t.toFixed(3)}`, 5, 18);
 };
 
-const vectorIntersection = {
+const Vector2Intersection = {
   variables,
   draw,
 };
 
-export default vectorIntersection;
+export default Vector2Intersection;

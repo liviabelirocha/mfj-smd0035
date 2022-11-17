@@ -1,6 +1,6 @@
 import P5 from "p5";
 import Helpers from "../helpers";
-import Point from "./Point";
+import Vector2 from "./Vector2";
 
 interface Options {
   isArrow?: boolean;
@@ -10,13 +10,13 @@ interface Options {
 export default class Line {
   private _p5: P5;
 
-  private _a: Point;
-  private _b: Point;
+  public _a: Vector2;
+  public _b: Vector2;
 
   private _options: Options;
   private _helper: Helpers;
 
-  constructor(p5: P5, a: Point, b: Point, options?: Options) {
+  constructor(p5: P5, a: Vector2, b: Vector2, options?: Options) {
     this._p5 = p5;
 
     this._a = a;
