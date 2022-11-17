@@ -1,9 +1,9 @@
 import P5 from "p5";
 import "p5/lib/addons/p5.dom";
 
-import Helpers from "./helpers";
+import { Vector2 } from "./geometry";
 
-import Vector2 from "./geometry/Vector2";
+import Helpers from "./helpers";
 
 import scenes from "./scenes";
 

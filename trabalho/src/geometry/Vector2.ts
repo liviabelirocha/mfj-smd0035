@@ -1,5 +1,5 @@
 import Helpers from "../helpers";
-import Line from "./Line";
+import { Line } from ".";
 
 interface Options {
   weight?: number;
@@ -8,7 +8,7 @@ interface Options {
   isPosition?: boolean;
 }
 
-export default class Vector2 {
+export class Vector2 {
   public _x: number;
   public _y: number;
 

@@ -1,7 +1,4 @@
-import P5 from "p5";
-
-import Line from "./geometry/Line";
-import Vector2 from "./geometry/Vector2";
+import { Line, Vector2 } from "./geometry";
 
 interface Options {
   mouse?: Vector2;

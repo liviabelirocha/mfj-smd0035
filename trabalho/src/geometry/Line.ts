@@ -1,12 +1,12 @@
 import Helpers from "../helpers";
-import Vector2 from "./Vector2";
+import { Vector2 } from ".";
 
 interface Options {
   isArrow?: boolean;
   color?: { c1: number; c2?: number; c3?: number; c4?: number };
 }
 
-export default class Line {
+export class Line {
   public _a: Vector2;
   public _b: Vector2;
 
