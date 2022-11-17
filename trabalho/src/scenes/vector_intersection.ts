@@ -1,4 +1,3 @@
-import p5 from "p5";
 import Vector2 from "../geometry/Vector2";
 import Helpers from "../helpers";
 
@@ -9,7 +8,6 @@ const variables = () => {
 };
 
 const draw = (
-  p5: p5,
   { points }: { points: Vector2[] },
   { helpers }: { helpers: Helpers }
 ) => {
@@ -48,11 +46,11 @@ const draw = (
 
   if (CD.cross(CA) * CD.cross(CB) > 0) return;
 
-  const N = new Vector2(p5, -CD._y, CD._x);
+  const N = new Vector2(-CD._y, CD._x);
   const NdotAB = N.dot(AB);
   const NdotAC = N.dot(AC);
   const t = NdotAC / NdotAB;
-  const Pt = new Vector2(p5, A._x, A._y).lerp(new Vector2(p5, B._x, B._y), t);
+  const Pt = new Vector2(A._x, A._y).lerp(new Vector2(B._x, B._y), t);
   p5.circle(Pt._x, Pt._y, 6);
 
   p5.text(`t = ${t.toFixed(3)}`, 5, 18);

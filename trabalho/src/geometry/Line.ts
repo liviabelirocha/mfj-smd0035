@@ -1,4 +1,3 @@
-import P5 from "p5";
 import Helpers from "../helpers";
 import Vector2 from "./Vector2";
 
@@ -8,22 +7,18 @@ interface Options {
 }
 
 export default class Line {
-  private _p5: P5;
-
   public _a: Vector2;
   public _b: Vector2;
 
   private _options: Options;
   private _helper: Helpers;
 
-  constructor(p5: P5, a: Vector2, b: Vector2, options?: Options) {
-    this._p5 = p5;
-
+  constructor(a: Vector2, b: Vector2, options?: Options) {
     this._a = a;
     this._b = b;
 
     this._options = options;
-    this._helper = new Helpers(p5);
+    this._helper = new Helpers();
   }
 
   getA() {
@@ -60,17 +55,17 @@ export default class Line {
     const { x: ax, y: ay } = a;
     const { x: bx, y: by } = b;
 
-    this._p5.line(ax, ay, bx, by);
+    p5.line(ax, ay, bx, by);
 
     if (isArrow) {
       const dx = bx - ax,
         dy = by - ay;
-      const le = this._p5.sqrt(dx * dx + dy * dy);
+      const le = p5.sqrt(dx * dx + dy * dy);
       const vx = dx / le,
         vy = dy / le;
       const ux = -vy;
       const uy = vx;
-      this._p5.triangle(
+      p5.triangle(
         bx,
         by,
         bx - 5 * vx + 2 * ux,

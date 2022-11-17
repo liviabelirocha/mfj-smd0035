@@ -10,9 +10,9 @@ import scenes from "./scenes";
 import "./styles.scss";
 
 const sketch = (p5: P5) => {
-  const mouse = new Vector2(p5, 0, 0);
+  const mouse = new Vector2(0, 0);
 
-  const helpers = new Helpers(p5, { mouse, drawCoordinates: true });
+  const helpers = new Helpers({ mouse, drawCoordinates: true });
 
   const { variables, draw } = scenes("vectorIntersection");
 
@@ -25,14 +25,14 @@ const sketch = (p5: P5) => {
   };
 
   p5.draw = () => {
-    draw(p5, { points }, { helpers });
+    draw({ points }, { helpers });
   };
 
   p5.mousePressed = () => {
     if (points.length === 4) return;
-    const point = new Vector2(p5, p5.mouseX, p5.mouseY, { weight: 5 });
+    const point = new Vector2(p5.mouseX, p5.mouseY, { weight: 5 });
     points.push(point);
   };
 };
 
-new P5(sketch);
+globalThis.p5 = new P5(sketch);

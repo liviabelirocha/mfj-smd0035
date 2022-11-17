@@ -1,4 +1,3 @@
-import P5 from "p5";
 import Helpers from "../helpers";
 import Line from "./Line";
 
@@ -10,8 +9,6 @@ interface Options {
 }
 
 export default class Vector2 {
-  private _p5: P5;
-
   public _x: number;
   public _y: number;
 
@@ -20,14 +17,13 @@ export default class Vector2 {
   private _helper: Helpers;
   private _options: Options;
 
-  constructor(p5: P5, x: number, y: number, options?: Options) {
-    this._p5 = p5;
+  constructor(x: number, y: number, options?: Options) {
     this._x = x;
     this._y = y;
 
     this._w = options?.w || (options?.isPosition ? 1 : 0);
 
-    this._helper = new Helpers(p5);
+    this._helper = new Helpers();
     this._options = options;
   }
 
@@ -54,7 +50,7 @@ export default class Vector2 {
   }
 
   sub(v: Vector2) {
-    return new Vector2(this._p5, this._x - v._x, this._y - v._y);
+    return new Vector2(this._x - v._x, this._y - v._y);
   }
 
   cross(v: Vector2) {
@@ -70,21 +66,19 @@ export default class Vector2 {
   }
 
   madd(v: Vector2, s: number) {
-    return new Vector2(this._p5, this._x + s * v._x, this._y + s * v._y);
+    return new Vector2(this._x + s * v._x, this._y + s * v._y);
   }
 
   draw(o?: Vector2) {
-    const p5 = this._p5;
-    if (!o) o = new Vector2(p5, 0, 0);
+    if (!o) o = new Vector2(0, 0);
     const { x: ox, y: oy } = o.getCoordinates();
 
     p5.circle(ox, oy, 6);
-    new Line(p5, o, new Vector2(p5, this._x, this._y, this._options)).draw();
+    new Line(o, new Vector2(this._x, this._y, this._options)).draw();
   }
 
   drawPoint() {
     const { color, weight } = this._options;
-    const p5 = this._p5;
 
     p5.push();
     this._helper.colore(
