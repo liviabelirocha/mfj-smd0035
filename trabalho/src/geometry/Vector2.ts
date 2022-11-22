@@ -17,6 +17,8 @@ export class Vector2 {
   private _helper: Helpers;
   private _options: Options;
 
+  public _colore: () => void;
+
   constructor(x: number, y: number, options?: Options) {
     this._x = x;
     this._y = y;
@@ -25,6 +27,15 @@ export class Vector2 {
 
     this._helper = new Helpers();
     this._options = options;
+
+    const color = options?.color;
+    this._colore = () =>
+      this._helper.colore(
+        color?.c1 ?? 0,
+        color?.c2 ?? null,
+        color?.c3 ?? null,
+        color?.c4 ?? null
+      );
   }
 
   getCoordinates() {
@@ -78,15 +89,10 @@ export class Vector2 {
   }
 
   drawPoint() {
-    const { color, weight } = this._options;
+    const { weight } = this._options;
 
     p5.push();
-    this._helper.colore(
-      color?.c1 ?? 0,
-      color?.c2 ?? null,
-      color?.c3 ?? null,
-      color?.c4 ?? null
-    );
+    this._colore();
     p5.fill(0);
     p5.strokeWeight(weight ?? 1);
     p5.point(this._x, this._y);
