@@ -54,10 +54,31 @@ export class Vector2 {
     this._w = w;
   }
 
+  //normalizar o w para 1, caso seja maior ou menor que 1
+  fixW() {
+    //sair cedo se não for necessário mudar o w
+    if (this._w == 0 || this._w == 1) return;
+    //senão, aplicar o w
+    this.setX(this._x / this._w);
+    this.setY(this._y / this._w);
+    this.setW(1);
+    return;
+  }
+
   setCoordinates(x: number, y: number, w?: number) {
     this.setX(x);
     this.setY(y);
     w && this.setW(w);
+  }
+
+  //tamanho do vértice
+  mag() {
+    return Math.sqrt(this._x * this._x + this._y * this._y);
+  }
+
+  //mais rapido em performance
+  magSquared() {
+    return this._x * this._x + this._y * this._y;
   }
 
   sub(v: Vector2) {
