@@ -7,9 +7,11 @@ interface Options {
 
 export default class Helpers {
   _options: Options;
+  _mouse?: Vector2;
 
   constructor(options?: Options) {
     this._options = options;
+    this._mouse = options?.mouse;
   }
 
   goCartesian() {
@@ -52,5 +54,11 @@ export default class Helpers {
       p5.fill(c1, c1, c1, c2);
       p5.stroke(c1, c1, c1, c2);
     }
+  }
+
+  random(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
 }

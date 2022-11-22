@@ -17,7 +17,7 @@ export class Line {
     this._a = a;
     this._b = b;
 
-    this._options = options;
+    this._options = options || {};
     this._helper = new Helpers();
   }
 
