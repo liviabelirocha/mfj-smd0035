@@ -1,6 +1,8 @@
 import P5 from "p5";
 import "p5/lib/addons/p5.dom";
 
+import { Vector2 } from "./geometry";
+
 import Helpers from "./helpers";
 
 import scenes from "./scenes";
@@ -8,20 +10,22 @@ import scenes from "./scenes";
 import "./styles.scss";
 
 const sketch = (p5: P5) => {
-  const helpers = new Helpers();
+  const mouse = new Vector2(0, 0);
 
-  const { variables, draw, mousePressed } = scenes("vectorIntersection");
+  const helpers = new Helpers({ mouse });
 
-  const { points } = variables();
+  const { draw, mousePressed, setup } = scenes("vectorSum");
 
   p5.setup = () => {
     const canvas = p5.createCanvas(400, 400);
+
+    setup({}, { helpers });
 
     canvas.parent("app");
   };
 
   p5.draw = () => {
-    draw({ points }, { helpers });
+    draw({}, { helpers });
   };
 
   p5.mousePressed = () => {

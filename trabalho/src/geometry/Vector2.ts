@@ -6,6 +6,7 @@ interface Options {
   color?: { c1: number; c2?: number; c3?: number; c4?: number };
   w?: number;
   isPosition?: boolean;
+  isArrow?: boolean;
 }
 
 export class Vector2 {
@@ -15,7 +16,7 @@ export class Vector2 {
   public _w: number;
 
   private _helper: Helpers;
-  private _options: Options;
+  public _options: Options;
 
   public _colore: () => void;
 
@@ -85,6 +86,10 @@ export class Vector2 {
     return new Vector2(this._x - v._x, this._y - v._y);
   }
 
+  add(v: Vector2) {
+    return new Vector2(this._x + v._x, this._y + v._y, this._options);
+  }
+
   cross(v: Vector2) {
     return this._x * v._y - this._y * v._x;
   }
@@ -101,12 +106,20 @@ export class Vector2 {
     return new Vector2(this._x + s * v._x, this._y + s * v._y);
   }
 
+  copy(options?: Options) {
+    return new Vector2(this._x, this._y, options);
+  }
+
   draw(o?: Vector2) {
     if (!o) o = new Vector2(0, 0);
     const { x: ox, y: oy } = o.getCoordinates();
 
-    p5.circle(ox, oy, 6);
-    new Line(o, new Vector2(this._x, this._y, this._options)).draw();
+    p5.circle(ox, oy, 5);
+    p5.strokeWeight(this._options?.weight ?? 1);
+    new Line(o, this, {
+      isArrow: !!this._options?.isArrow,
+      color: this._options?.color,
+    }).draw();
   }
 
   drawPoint() {
