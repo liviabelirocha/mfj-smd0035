@@ -110,18 +110,6 @@ export class Vector2 {
     return new Vector2(this._x, this._y, options);
   }
 
-  draw(o?: Vector2) {
-    if (!o) o = new Vector2(0, 0);
-    const { x: ox, y: oy } = o.getCoordinates();
-
-    p5.circle(ox, oy, 5);
-    p5.strokeWeight(this._options?.weight ?? 1);
-    new Line(o, this, {
-      isArrow: !!this._options?.isArrow,
-      color: this._options?.color,
-    }).draw();
-  }
-
   drawPoint() {
     const { weight } = this._options;
 
@@ -131,5 +119,18 @@ export class Vector2 {
     p5.strokeWeight(weight ?? 1);
     p5.point(this._x, this._y);
     p5.pop();
+  }
+
+  //antigo draw()
+  drawLine(o?: Vector2) {
+    if (!o) o = new Vector2(0, 0);
+    const { x: ox, y: oy } = o.getCoordinates();
+
+    p5.circle(ox, oy, 5);
+    p5.strokeWeight(this._options?.weight ?? 1);
+    new Line(o, this, {
+      isArrow: !!this._options?.isArrow,
+      color: this._options?.color,
+    }).draw();
   }
 }
