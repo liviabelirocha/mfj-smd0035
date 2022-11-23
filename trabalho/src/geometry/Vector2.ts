@@ -121,8 +121,7 @@ export class Vector2 {
     p5.pop();
   }
 
-  //antigo draw()
-  drawLine(o?: Vector2) {
+  draw(o?: Vector2) {
     if (!o) o = new Vector2(0, 0);
     const { x: ox, y: oy } = o.getCoordinates();
 

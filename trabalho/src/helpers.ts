@@ -21,9 +21,9 @@ export default class Helpers {
     p5.background(255);
     p5.strokeWeight(1);
 
-    const { mouse, drawCoordinates } = this._options;
+    const { drawCoordinates } = this._options;
 
-    mouse.setCoordinates(p5.mouseX - width / 2, height / 2 - p5.mouseY);
+    this._mouse.setCoordinates(p5.mouseX - width / 2, height / 2 - p5.mouseY);
 
     if (drawCoordinates) {
       new Line(new Vector2(0, height / 2), new Vector2(width, height / 2), {
@@ -38,6 +38,14 @@ export default class Helpers {
 
     p5.translate(width / 2, height / 2);
     p5.scale(1, -1, 1);
+  }
+
+  cartesianText(text: string, x: number, y: number) {
+    p5.push();
+    p5.resetMatrix();
+    p5.translate(p5.width / 2, p5.height / 2);
+    p5.text(text, x, -y);
+    p5.pop();
   }
 
   colore(c1: number, c2?: number, c3?: number, c4?: number) {

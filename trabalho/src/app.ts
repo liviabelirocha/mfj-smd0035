@@ -12,9 +12,9 @@ import "./styles.scss";
 const sketch = (p5: P5) => {
   const mouse = new Vector2(0, 0);
 
-  const helpers = new Helpers({ mouse });
+  const helpers = new Helpers({ mouse, drawCoordinates: true });
 
-  const { draw, mousePressed, setup } = scenes("vectorSum");
+  const { draw, mousePressed, setup } = scenes("matrixOps");
 
   p5.setup = () => {
     const canvas = p5.createCanvas(400, 400);

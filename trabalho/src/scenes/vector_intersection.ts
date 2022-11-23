@@ -1,4 +1,4 @@
-import { Draw } from ".";
+import { Main } from ".";
 import { Vector2 } from "../geometry";
 
 const points: Vector2[] = [];
@@ -7,7 +7,7 @@ const variables = () => {
   return { points };
 };
 
-const draw: Draw = ({ points }: { points: Vector2[] }) => {
+const draw: Main = ({ points }: { points: Vector2[] }) => {
   p5.background(220);
 
   if (points.length === 0) return;
