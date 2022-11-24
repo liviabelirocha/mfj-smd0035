@@ -41,7 +41,7 @@ const doChore = () => {
   resulting.draw(mainVector);
 };
 
-const setup: Main = ({}, { helpers }) => {
+const setup: Main = ({ helpers }) => {
   for (let i = 0; i < numOfVectors; i++) {
     const x = helpers.random(-50, 50);
     const y = helpers.random(-50, 50);

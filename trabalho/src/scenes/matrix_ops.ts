@@ -16,7 +16,7 @@ const currentTransformation = () => transformations[currentTransformationIndex];
 
 const setup: Main = () => {};
 
-const draw: Main = ({}, { helpers }) => {
+const draw: Main = ({ helpers }) => {
   helpers.goCartesian();
 
   p5.fill(0);

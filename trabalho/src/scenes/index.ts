@@ -4,7 +4,7 @@ import vectorIntersection from "./vector_intersection";
 import vectorSum from "./vector_sum";
 import matrixOps from "./matrix_ops";
 
-export type Main = (payload: any, options: { helpers: Helpers }) => void;
+export type Main = (options: { helpers: Helpers }) => void;
 
 type SceneTitle = "vectorIntersection" | "vectorSum" | "matrixOps";
 

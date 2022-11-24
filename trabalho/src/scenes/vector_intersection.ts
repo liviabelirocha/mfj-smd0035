@@ -5,7 +5,7 @@ const points: Vector2[] = [];
 
 const setup: Main = () => {};
 
-const draw: Main = () => {
+const draw: Main = ({}) => {
   p5.background(220);
 
   if (points.length === 0) return;

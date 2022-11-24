@@ -19,13 +19,13 @@ const sketch = (p5: P5) => {
   p5.setup = () => {
     const canvas = p5.createCanvas(400, 400);
 
-    setup({}, { helpers });
+    setup({ helpers });
 
     canvas.parent("app");
   };
 
   p5.draw = () => {
-    draw({}, { helpers });
+    draw({ helpers });
   };
 
   p5.mousePressed = () => {
