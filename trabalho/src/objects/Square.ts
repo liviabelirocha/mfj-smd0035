@@ -43,11 +43,11 @@ export class Square {
       this._points[i] = matrix.vecMult(this._points[i]);
   }
 
-  trs(mouse: Vector2, angle: number) {
+  trs(mouse: Vector2) {
     const matrix = new Matrix3().trs({
       dx: mouse._x,
       dy: mouse._y,
-      angle,
+      angle: mouse.radAngle(),
       sx: mouse._x / 50,
       sy: mouse._y / 50,
     });
@@ -56,11 +56,11 @@ export class Square {
       this._points[i] = matrix.vecMult(this._points[i]);
   }
 
-  inverse_trs(mouse: Vector2, angle: number) {
+  inverse_trs(mouse: Vector2) {
     const matrix = new Matrix3().inverse_trs({
       dx: mouse._x,
       dy: mouse._y,
-      angle,
+      angle: mouse.radAngle(),
       sx: mouse._x / 50,
       sy: mouse._y / 50,
     });

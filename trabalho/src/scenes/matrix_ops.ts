@@ -1,7 +1,6 @@
-import { Main } from ".";
-import { Square } from "../geometry";
+import { Main, Scene } from ".";
+import { Square } from "../objects";
 
-let angle = 0;
 let square: Square;
 
 const transformations = [
@@ -15,8 +14,6 @@ let currentTransformationIndex = 0;
 
 const currentTransformation = () => transformations[currentTransformationIndex];
 
-const variables = () => {};
-
 const setup: Main = () => {};
 
 const draw: Main = ({}, { helpers }) => {
@@ -28,11 +25,10 @@ const draw: Main = ({}, { helpers }) => {
   helpers.cartesianText(`Current: ${currentTransformation()}`, -190, 160);
 
   square = new Square();
-  angle = p5.createVector(helpers._mouse._x, helpers._mouse._y).heading();
 
   switch (currentTransformation()) {
     case "rotation":
-      square.rotate(angle);
+      square.rotate(helpers._mouse.radAngle());
       break;
     case "translation":
       square.translate(helpers._mouse);
@@ -41,10 +37,10 @@ const draw: Main = ({}, { helpers }) => {
       square.scale(helpers._mouse);
       break;
     case "trs":
-      square.trs(helpers._mouse, angle);
+      square.trs(helpers._mouse);
       break;
     case "inverse_trs":
-      square.inverse_trs(helpers._mouse, angle);
+      square.inverse_trs(helpers._mouse);
       break;
   }
 
@@ -58,6 +54,6 @@ const mousePressed = () => {
     currentTransformationIndex = 0;
 };
 
-const matrixOps = { setup, draw, variables, mousePressed };
+const matrixOps: Scene = { setup, draw, mousePressed };
 
 export default matrixOps;

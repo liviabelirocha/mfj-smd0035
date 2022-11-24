@@ -110,6 +110,10 @@ export class Vector2 {
     return new Vector2(this._x, this._y, options);
   }
 
+  radAngle() {
+    return Math.atan2(this._y, this._x);
+  }
+
   drawPoint() {
     const { weight } = this._options;
 

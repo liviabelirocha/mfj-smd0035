@@ -1,4 +1,4 @@
-import { Main } from ".";
+import { Main, Scene } from ".";
 import { Vector2 } from "../geometry";
 
 const numOfVectors = Math.floor(Math.random() * 10) + 2;
@@ -6,8 +6,6 @@ const vectors: Vector2[] = [];
 const mainVector = new Vector2(200, 200, {
   weight: 3,
 });
-
-const variables = () => {};
 
 const doChore = () => {
   p5.background(220);
@@ -59,11 +57,10 @@ const mousePressed = () => {
   doChore();
 };
 
-const Vector2Sum = {
-  variables,
+const vectorSum: Scene = {
   mousePressed,
   setup,
   draw,
 };
 
-export default Vector2Sum;
+export default vectorSum;

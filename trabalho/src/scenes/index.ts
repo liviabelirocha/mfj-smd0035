@@ -6,14 +6,15 @@ import matrixOps from "./matrix_ops";
 
 export type Main = (payload: any, options: { helpers: Helpers }) => void;
 
-type Scene = {
-  variables: () => any;
+type SceneTitle = "vectorIntersection" | "vectorSum" | "matrixOps";
+
+export type Scene = {
   draw: Main;
-  setup?: Main;
-  mousePressed?: () => void;
+  setup: Main;
+  mousePressed: () => void;
 };
 
-const chooseScene = (scene: string): Scene => {
+const chooseScene = (scene: SceneTitle): Scene => {
   switch (scene) {
     case "vectorIntersection":
       return vectorIntersection;
