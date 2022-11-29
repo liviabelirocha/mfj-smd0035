@@ -14,7 +14,7 @@ const sketch = (p5: P5) => {
 
   const helpers = new Helpers({ mouse, drawCoordinates: true });
 
-  const { draw, mousePressed, setup } = scenes("matrixOps");
+  const { draw, mousePressed, setup } = scenes("vectorIntersection");
 
   p5.setup = () => {
     const canvas = p5.createCanvas(400, 400);

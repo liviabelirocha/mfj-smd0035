@@ -106,6 +106,13 @@ export class Vector2 {
     return new Vector2(this._x + s * v._x, this._y + s * v._y);
   }
 
+  rotateByRad(a: number) {
+    return new Vector2(
+      Math.cos(a) * this._x - Math.sin(a) * this._y,
+      Math.sin(a) * this._x + Math.cos(a) * this._y
+    );
+  }
+
   copy(options?: Options) {
     return new Vector2(this._x, this._y, options);
   }
