@@ -9,6 +9,7 @@ const transformations = [
   "scale",
   "trs",
   "inverse_trs",
+  "camera",
 ];
 let currentTransformationIndex = 0;
 
@@ -41,6 +42,9 @@ const draw: Main = ({ helpers }) => {
       break;
     case "inverse_trs":
       square.inverse_trs(helpers._mouse);
+      break;
+    case "camera":
+      square.camera(helpers._mouse);
       break;
   }
 

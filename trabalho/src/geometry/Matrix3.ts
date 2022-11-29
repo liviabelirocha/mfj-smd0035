@@ -152,4 +152,13 @@ export class Matrix3 {
 
     return srt;
   }
+
+  inverse_tr({ dx, dy, angle }: { dx: number; dy: number; angle: number }) {
+    const r = new Matrix3().rotation(angle);
+    const t = new Matrix3().translation(dx, dy);
+
+    const rt = r.mult(t);
+
+    return rt;
+  }
 }

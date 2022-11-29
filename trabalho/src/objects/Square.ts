@@ -69,5 +69,14 @@ export class Square {
       this._points[i] = matrix.vecMult(this._points[i]);
   }
 
-  inverse_transpose() {}
+  camera(mouse: Vector2) {
+    const matrix = new Matrix3().inverse_tr({
+      dx: mouse._x,
+      dy: mouse._y,
+      angle: mouse.radAngle(),
+    });
+
+    for (let i = 0; i < 4; i++)
+      this._points[i] = matrix.vecMult(this._points[i]);
+  }
 }
