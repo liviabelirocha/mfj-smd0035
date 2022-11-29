@@ -7,8 +7,9 @@ export class CollisionTests {
   static AABB_AABB(a: CollisionAABB, b: CollisionAABB) {
     const distance = a._origin.sub(b._origin);
     //a distancia em cada eixo precisa ser menor que as metades dos tamanhos
-    if (distance._x > (a._width + b._width) / 2) return false;
-    if (distance._y > (a._height + b._height) / 2) return false;
+    if (Math.abs(distance._x) > (a._width + b._width) / 2) return false;
+    if (Math.abs(distance._y) > (a._height + b._height) / 2) return false;
+
     return true;
   }
 
@@ -33,18 +34,18 @@ export class CollisionTests {
       if (b.isPointInside(aabb_corners[i])) return true;
     }
     //testar os pontos da obb
-    const b_hw = b._width / 2;
-    const b_hh = b._height / 2;
-    const obb_corners = [
-      b._origin.add(new Vector2(b_hw, b_hh).rotateByRad(b._angle)),
-      b._origin.add(new Vector2(b_hw, -b_hh).rotateByRad(b._angle)),
-      b._origin.add(new Vector2(-b_hw, b_hh).rotateByRad(b._angle)),
-      b._origin.add(new Vector2(-b_hw, -b_hh).rotateByRad(b._angle)),
-    ];
-    //se um dos pontos da aabb estão dentro da obb, verdadeiro
-    for (let i = 0; i < obb_corners.length; i++) {
-      if (a.isPointInside(obb_corners[i])) return true;
-    }
+    // const b_hw = b._width / 2;
+    // const b_hh = b._height / 2;
+    // const obb_corners = [
+    //   b._origin.add(new Vector2(b_hw, b_hh).rotateByRad(b._angle)),
+    //   b._origin.add(new Vector2(b_hw, -b_hh).rotateByRad(b._angle)),
+    //   b._origin.add(new Vector2(-b_hw, b_hh).rotateByRad(b._angle)),
+    //   b._origin.add(new Vector2(-b_hw, -b_hh).rotateByRad(b._angle)),
+    // ];
+    // //se um dos pontos da aabb estão dentro da obb, verdadeiro
+    // for (let i = 0; i < obb_corners.length; i++) {
+    //   if (a.isPointInside(obb_corners[i])) return true;
+    // }
     return false;
   }
 

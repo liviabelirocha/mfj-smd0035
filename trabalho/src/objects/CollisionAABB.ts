@@ -12,6 +12,12 @@ export class CollisionAABB extends CollisionShape {
 
   draw() {
     //TODO: p5.rect
+    p5.rect(
+      this._origin._x - this._width / 2,
+      this._origin._y - this._height / 2,
+      this._width,
+      this._height
+    );
   }
 
   isPointInside(pt: Vector2) {

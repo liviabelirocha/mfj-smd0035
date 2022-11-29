@@ -9,8 +9,7 @@ export class CollisionCircle extends CollisionShape {
   }
 
   draw() {
-    //TODO: desenhar collision shapes com cores?
-    p5.circle(this._origin._x, this._origin._y, this._radius);
+    p5.circle(this._origin._x, this._origin._y, 2 * this._radius);
   }
 
   isPointInside(pt: Vector2) {
