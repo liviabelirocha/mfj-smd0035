@@ -27,7 +27,7 @@ export class Vector2 {
     this._w = options?.w || (options?.isPosition ? 1 : 0);
 
     this._helper = new Helpers();
-    this._options = options;
+    this._options = options ?? {};
 
     const color = options?.color;
     this._colore = () =>

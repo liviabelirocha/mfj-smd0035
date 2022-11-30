@@ -73,4 +73,21 @@ export default class Helpers {
   static clamp(value: number, min: number, max: number) {
     return Math.max(min, Math.min(max, value));
   }
+
+  randomPoints(amount: number, range: number) {
+    const points: Vector2[] = [];
+
+    for (let i = 0; i < amount; i++)
+      points.push(
+        new Vector2(
+          this.random(range, p5.width - range),
+          this.random(range, p5.height - range),
+          {
+            weight: 5,
+          }
+        )
+      );
+
+    return points;
+  }
 }

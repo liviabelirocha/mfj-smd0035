@@ -14,7 +14,7 @@ const sketch = (p5: P5) => {
 
   const helpers = new Helpers({ mouse, drawCoordinates: true });
 
-  const { draw, mousePressed, setup } = scenes("objectCollision");
+  const { draw, mousePressed, setup } = scenes("enclosingVolumes");
 
   p5.setup = () => {
     const canvas = p5.createCanvas(400, 400);
@@ -29,7 +29,7 @@ const sketch = (p5: P5) => {
   };
 
   p5.mousePressed = () => {
-    mousePressed();
+    mousePressed({ helpers });
   };
 };
 
