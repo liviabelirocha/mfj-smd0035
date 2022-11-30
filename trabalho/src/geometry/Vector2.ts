@@ -72,7 +72,6 @@ export class Vector2 {
     w && this.setW(w);
   }
 
-  //tamanho do vértice
   mag() {
     return Math.sqrt(this._x * this._x + this._y * this._y);
   }
@@ -119,6 +118,20 @@ export class Vector2 {
 
   radAngle() {
     return Math.atan2(this._y, this._x);
+  }
+
+  normalize() {
+    const mag = this.mag();
+    this.setCoordinates(this._x / mag, this._y / mag);
+    return this;
+  }
+
+  normal() {
+    return new Vector2(-this._y, this._x);
+  }
+
+  multiply(value: number) {
+    return new Vector2(this._x * value, this._y * value);
   }
 
   drawPoint() {

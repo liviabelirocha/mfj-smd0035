@@ -12,9 +12,8 @@ let obb: OBB;
 const generateCloud = (helpers: Helpers) => {
   points = helpers.randomPoints(pointsAmount, 60);
   aabb = constructAABB(points);
-  //circle = new Circle(new Vector2(0, 0), 100); //constructCircle(points);
   circle = constructCircle(points);
-  // obb = constructOBB(points);
+  obb = constructOBB(points);
 };
 
 const constructAABB = (pointsCloud: Vector2[]) => {
@@ -63,9 +62,9 @@ const constructCircleTest = (pointsCloud: Vector2[]) => {
 const constructCircle = (pointsCloud: Vector2[]) => {
   //algoritmo burro: para todas as combinações de 2 pontos e 3 pontos, escolher
   //o circulo de menor raio que contem todos os pontos
-  let smallestCircle: Circle = null;
-  let testCircle: Circle = null;
-  //todos os pares
+  let smallestCircle: Circle;
+  let testCircle: Circle;
+  // todos os pares
   for (let i = 0; i < pointsCloud.length; i++) {
     for (let j = i + 1; j < pointsCloud.length; j++) {
       testCircle = circleFromTwoPoints(pointsCloud[i], pointsCloud[j]);
@@ -76,13 +75,12 @@ const constructCircle = (pointsCloud: Vector2[]) => {
           break;
         }
       }
-      if (isValid) {
+      if (isValid)
         if (
           smallestCircle == null ||
           testCircle._radius <= smallestCircle._radius
         )
           smallestCircle = testCircle;
-      }
     }
   }
   //e todos os trios
@@ -101,13 +99,12 @@ const constructCircle = (pointsCloud: Vector2[]) => {
             break;
           }
         }
-        if (isValid) {
+        if (isValid)
           if (
             smallestCircle == null ||
             testCircle._radius <= smallestCircle._radius
           )
             smallestCircle = testCircle;
-        }
       }
     }
   }
@@ -125,7 +122,6 @@ const circleFromTwoPoints = (p1: Vector2, p2: Vector2) => {
 };
 
 const circleFromThreePoints = (p1: Vector2, p2: Vector2, p3: Vector2) => {
-  //https://www.geeksforgeeks.org/equation-of-circle-when-three-points-on-the-circle-are-given/
   const x1_2 = p1._x - p2._x;
   const x1_3 = p1._x - p3._x;
   const x3_1 = -x1_3;
@@ -148,9 +144,6 @@ const circleFromThreePoints = (p1: Vector2, p2: Vector2, p3: Vector2) => {
     (2 * (x3_1 * y1_2 - x2_1 * y1_3));
 
   const c = -p1._x * p1._x - p1._y * p1._y - 2 * g * p1._x - 2 * f * p1._y;
-  // equação do circulo é x^2 + y^2 + 2*g*x + 2*f*y + c = 0
-  // onde o centro (h,k) é (h = -g, k = -f) e raio r
-  // com r^2 = h^2 + k^2 - c = g^2 + f^2 - c
   const origin = new Vector2(-g, -f);
   let radius = Math.sqrt(f * f + g * g - c);
   radius += 0.01; //corrigir erros de float
@@ -158,7 +151,54 @@ const circleFromThreePoints = (p1: Vector2, p2: Vector2, p3: Vector2) => {
   return new Circle(origin, radius);
 };
 
-const constructOBB = (pointsCloud: Vector2[]) => {};
+const constructOBB = (pointsCloud: Vector2[]) => {
+  const u = new Vector2(Math.random(), Math.random()).normalize();
+  const v = u.normal();
+
+  const project = (v: Vector2, points: Vector2[]) => {
+    let min = Infinity;
+    let max = -Infinity;
+
+    for (const point of points) {
+      const dotProd = v.dot(point);
+      min = Math.min(min, dotProd);
+      max = Math.max(max, dotProd);
+    }
+
+    return { min, max };
+  };
+
+  const pu = project(u, pointsCloud);
+  const pv = project(v, pointsCloud);
+
+  // center
+  const uc = (pu.min + pu.max) / 2;
+  const vc = (pv.min + pv.max) / 2;
+  const vec1 = u.multiply(uc);
+  const vec2 = v.multiply(vc);
+  const center = vec1.add(vec2);
+
+  //  corners
+  const width = (pu.max - pu.min) / 2;
+  const height = (pv.max - pv.min) / 2;
+
+  // coords
+  const op0 = [u.multiply(-width), v.multiply(-height)];
+  const op1 = [u.multiply(width), v.multiply(-height)];
+  const op2 = [u.multiply(width), v.multiply(height)];
+  const op3 = [u.multiply(-width), v.multiply(height)];
+
+  let p0 = op0[0].add(op0[1]).add(center);
+  let p1 = op1[0].add(op1[1]).add(center);
+  let p2 = op2[0].add(op2[1]).add(center);
+  let p3 = op3[0].add(op3[1]).add(center);
+
+  const xAxis = new Vector2(1, 0);
+  const adot = u.dot(xAxis);
+  const angle = Math.acos(adot / (xAxis.mag() * u.mag()));
+
+  return new OBB(center, width, height, angle, { p0, p1, p2, p3 });
+};
 
 const draw: Main = () => {
   p5.background(100);
@@ -172,7 +212,13 @@ const draw: Main = () => {
   p5.stroke(255, 0, 0);
   p5.text("AABB", aabb._min._x, aabb._min._y - 5);
   aabb.draw();
+
+  p5.stroke(0, 255, 0);
   circle.draw();
+
+  p5.stroke(0, 0, 255);
+  p5.text("OOBB", obb._coords.p0._x, obb._coords.p0._y - 5);
+  obb.drawWithCoords();
 };
 
 const setup: Main = ({ helpers }) => {
