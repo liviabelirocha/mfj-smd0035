@@ -19,6 +19,6 @@ export class Circle extends CollisionShape {
      */
 
     const distvec = this._origin.sub(pt);
-    return !(distvec.magSquared() > this._radius * this._radius);
+    return distvec.mag() <= this._radius;
   }
 }
