@@ -188,10 +188,10 @@ const constructOBB = (pointsCloud: Vector2[]) => {
   const op2 = [u.multiply(width), v.multiply(height)];
   const op3 = [u.multiply(-width), v.multiply(height)];
 
-  let p0 = op0[0].add(op0[1]).add(center);
-  let p1 = op1[0].add(op1[1]).add(center);
-  let p2 = op2[0].add(op2[1]).add(center);
-  let p3 = op3[0].add(op3[1]).add(center);
+  const p0 = op0[0].add(op0[1]).add(center);
+  const p1 = op1[0].add(op1[1]).add(center);
+  const p2 = op2[0].add(op2[1]).add(center);
+  const p3 = op3[0].add(op3[1]).add(center);
 
   const xAxis = new Vector2(1, 0);
   const adot = u.dot(xAxis);
