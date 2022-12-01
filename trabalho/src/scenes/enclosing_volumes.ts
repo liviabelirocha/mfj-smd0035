@@ -214,6 +214,11 @@ const draw: Main = () => {
   aabb.draw();
 
   p5.stroke(0, 255, 0);
+  p5.text(
+    "Circle",
+    circle._origin._x - circle._radius + 30,
+    circle._origin._y - circle._radius + 30
+  );
   circle.draw();
 
   p5.stroke(0, 0, 255);
