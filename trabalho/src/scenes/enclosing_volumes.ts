@@ -222,7 +222,11 @@ const draw: Main = () => {
   circle.draw();
 
   p5.stroke(0, 0, 255);
-  p5.text("OOBB", obb._coords.p0._x, obb._coords.p0._y - 5);
+  p5.push();
+  p5.translate(obb._coords.p0._x, obb._coords.p0._y - 5);
+  p5.rotate(obb._angle);
+  p5.text("OOBB", 0, 0);
+  p5.pop();
   obb.drawWithCoords();
 };
 
