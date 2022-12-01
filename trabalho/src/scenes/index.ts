@@ -5,20 +5,23 @@ import vectorSum from "./vector_sum";
 import matrixOps from "./matrix_ops";
 import objectCollision from "./obj_collision";
 import enclosingVolumes from "./enclosing_volumes";
+import pointBelongs from "./point_belongs";
 
 export type Main = (options: { helpers: Helpers }) => void;
 
-type SceneTitle =
+export type SceneTitle =
   | "vectorIntersection"
   | "vectorSum"
   | "matrixOps"
   | "objectCollision"
-  | "enclosingVolumes";
+  | "enclosingVolumes"
+  | "pointBelongs";
 
 export type Scene = {
   draw: Main;
   setup: Main;
   mousePressed: Main;
+  reset: () => void;
 };
 
 const chooseScene = (scene: SceneTitle): Scene => {
@@ -33,6 +36,8 @@ const chooseScene = (scene: SceneTitle): Scene => {
       return objectCollision;
     case "enclosingVolumes":
       return enclosingVolumes;
+    case "pointBelongs":
+      return pointBelongs;
     default:
       return;
   }

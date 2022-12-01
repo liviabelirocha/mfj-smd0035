@@ -61,6 +61,7 @@ const vectorSum: Scene = {
   mousePressed,
   setup,
   draw,
+  reset: () => {},
 };
 
 export default vectorSum;

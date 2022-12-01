@@ -58,6 +58,11 @@ const mousePressed = () => {
     currentTransformationIndex = 0;
 };
 
-const matrixOps: Scene = { setup, draw, mousePressed };
+const reset = () => {
+  square = null;
+  currentTransformationIndex = 0;
+};
+
+const matrixOps: Scene = { setup, draw, mousePressed, reset };
 
 export default matrixOps;

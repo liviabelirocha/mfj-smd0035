@@ -84,6 +84,9 @@ export default class Helpers {
           this.random(range, p5.height - range),
           {
             weight: 5,
+            color: {
+              c1: 220,
+            },
           }
         )
       );

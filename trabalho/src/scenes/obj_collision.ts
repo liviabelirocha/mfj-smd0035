@@ -24,7 +24,6 @@ const setup: Main = () => {
 
 const draw: Main = ({ helpers }) => {
   //helpers.goCartesian();
-  p5.background(100);
   //desenhar a forma atual
   shape_mouse._origin.setCoordinates(p5.mouseX, p5.mouseY);
 
@@ -90,6 +89,11 @@ const swap_shape = function () {
   }
 };
 
-const objectCollision: Scene = { draw, setup, mousePressed };
+const reset = () => {
+  shape_mouse = null;
+  shape_target = null;
+};
+
+const objectCollision: Scene = { draw, setup, mousePressed, reset };
 
 export default objectCollision;
