@@ -33,7 +33,7 @@ export class AABB extends CollisionShape {
       pt._x < this._origin._x - halfwidth ||
       pt._x > this._origin._x + halfwidth ||
       pt._y < this._origin._y - halfheight ||
-      pt._y < this._origin._y + halfheight
+      pt._y > this._origin._y + halfheight
     );
   }
 }

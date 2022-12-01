@@ -5,26 +5,43 @@ import { Vector2 } from "./geometry";
 
 import Helpers from "./helpers";
 
-import scenes from "./scenes";
+import scenes, { SceneTitle } from "./scenes";
 
 import "./styles.scss";
+
+const possibleScenes: SceneTitle[] = [
+  "enclosingVolumes",
+  "pointBelongs",
+  "objectCollision",
+];
+
+let currentSceneIndex = 0;
+
+const currentScene = () => possibleScenes[currentSceneIndex];
 
 const sketch = (p5: P5) => {
   const mouse = new Vector2(0, 0);
 
   const helpers = new Helpers({ mouse, drawCoordinates: true });
 
-  const { draw, mousePressed, setup } = scenes("enclosingVolumes");
+  const { draw, mousePressed, setup, reset } = scenes(currentScene());
 
   p5.setup = () => {
-    const canvas = p5.createCanvas(400, 400);
+    const canvas = p5.createCanvas(450, 450);
 
+    reset();
     setup({ helpers });
 
     canvas.parent("app");
   };
 
   p5.draw = () => {
+    p5.background(0);
+
+    helpers.colore(220, 220, 220);
+    p5.text(`Cena atual: ${currentScene()}`, 10, p5.height - 10);
+    p5.text("Espaço para mudar de cena", 10, p5.height - 30);
+
     draw({ helpers });
   };
 
@@ -33,4 +50,18 @@ const sketch = (p5: P5) => {
   };
 };
 
-globalThis.p5 = new P5(sketch);
+document.addEventListener("keyup", (event: KeyboardEvent) => {
+  const { code } = event;
+  if (code === "Space") {
+    document.getElementById("app").innerHTML = "";
+    currentSceneIndex += 1;
+    if (currentSceneIndex === possibleScenes.length) currentSceneIndex = 0;
+    setP5();
+  }
+});
+
+const setP5 = () => {
+  globalThis.p5 = new P5(sketch);
+};
+
+setP5();

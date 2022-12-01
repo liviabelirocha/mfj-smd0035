@@ -69,6 +69,7 @@ const vectorIntersection: Scene = {
   draw,
   mousePressed,
   setup,
+  reset: () => {},
 };
 
 export default vectorIntersection;

@@ -201,11 +201,11 @@ const constructOBB = (pointsCloud: Vector2[]) => {
 };
 
 const draw: Main = () => {
-  p5.background(100);
   p5.noFill();
 
-  p5.stroke(0, 0, 0);
+  p5.stroke(220, 220, 220);
   p5.text(`Volumes envoltórios com ${pointsAmount} pontos`, 10, 20);
+  p5.text("Clique para gerar novos pontos", 10, 40);
 
   for (const point of points) point.drawPoint();
 
@@ -229,6 +229,13 @@ const mousePressed: Main = ({ helpers }) => {
   generateCloud(helpers);
 };
 
-const enclosingVolumes: Scene = { draw, setup, mousePressed };
+const reset = () => {
+  points.splice(0, points.length);
+  aabb = null;
+  circle = null;
+  obb = null;
+};
+
+const enclosingVolumes: Scene = { draw, setup, mousePressed, reset };
 
 export default enclosingVolumes;
