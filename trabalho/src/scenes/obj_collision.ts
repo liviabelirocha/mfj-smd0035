@@ -9,7 +9,13 @@ let shape_target: CollisionShape;
 
 const setup: Main = () => {
   shape_mouse = new AABB(new Vector2(p5.mouseX, p5.mouseY), 50, 90);
-  shape_target = new AABB(new Vector2(p5.width / 2, p5.height / 2), 200, 130);
+  //shape_target = new AABB(new Vector2(p5.width / 2, p5.height / 2), 200, 130);
+  shape_target = new OBB(
+    new Vector2(p5.width / 2, p5.height / 2),
+    200,
+    100,
+    Math.PI / 10
+  );
   //   shape_target = new Circle(
   //     new Vector2(p5.width / 2, p5.height / 2),
   //     100
@@ -21,6 +27,10 @@ const draw: Main = ({ helpers }) => {
   p5.background(100);
   //desenhar a forma atual
   shape_mouse._origin.setCoordinates(p5.mouseX, p5.mouseY);
+
+  if (shape_mouse instanceof OBB) {
+    (shape_mouse as OBB)._angle += Math.PI / 100;
+  }
   p5.fill(p5.color("green"));
   shape_target.draw();
   test_col();

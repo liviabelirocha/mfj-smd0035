@@ -29,17 +29,14 @@ export class OBB extends CollisionShape {
   }
 
   draw() {
-    const halfwidth = this._width / 2;
-    const halfheight = this._height / 2;
-    //p5.translate(-halfwidth, -halfheight);
     p5.push();
-
-    p5.translate(this._origin._x, this._origin._y);
-    p5.rotate(this._angle);
-    p5.rect(-this._width / 2, -this._height / 2, this._width, this._height);
-    //p5.rotate(-p5.radians(p5.frameCount));
+    p5.beginShape();
+    const corners = this.getCorners();
+    for (const pt of corners) {
+      p5.vertex(pt._x, pt._y);
+    }
+    p5.endShape("close");
     p5.pop();
-    //p5.translate(halfwidth, halfheight);
   }
 
   drawWithCoords() {
@@ -53,21 +50,40 @@ export class OBB extends CollisionShape {
     p5.endShape("close");
   }
 
+  getCorners() {
+    const o = this._origin;
+    const hw = this._width / 2.0;
+    const hh = this._height / 2.0;
+    const sina = Math.sin(this._angle);
+    const cosa = Math.cos(this._angle);
+
+    let corners = [
+      //os comentarios são com angulo < pi/2
+      new Vector2(o._x + hw * cosa + hh * sina, o._y + hh * cosa - hw * sina), //superior direito
+      new Vector2(o._x + hw * cosa - hh * sina, o._y - hh * cosa - hw * sina), //inferior direito
+      new Vector2(o._x - hw * cosa - hh * sina, o._y - hh * cosa + hw * sina), //inferior esquerdo
+      new Vector2(o._x - hw * cosa + hh * sina, o._y + hh * cosa + hw * sina), //superior esquerdo
+    ];
+    return corners;
+  }
+
   isPointInside(pt: Vector2) {
     const halfwidth = this._width / 2.0;
     const halfheight = this._height / 2.0;
     const a = this._angle;
-
+    const dist = pt.sub(this._origin);
+    //rotacionar o plano de referencia do ponto atual
     const rpt = new Vector2(
-      pt._x * Math.cos(a) - pt._y * Math.sin(a),
-      pt._x * Math.sin(a) + pt._y * Math.cos(a)
+      dist._x * Math.cos(a) - dist._y * Math.sin(a),
+      dist._x * Math.sin(a) + dist._y * Math.cos(a)
     );
+    //console.log(Math.round(rpt._x / 10), Math.round(rpt._y / 10));
 
     return !(
-      rpt._x < this._origin._x - halfwidth ||
-      rpt._x > this._origin._x + halfwidth ||
-      rpt._y < this._origin._y - halfheight ||
-      rpt._y < this._origin._y + halfheight
+      rpt._x < -halfwidth ||
+      rpt._x > halfwidth ||
+      rpt._y < -halfheight ||
+      rpt._y > halfheight
     );
   }
 }
