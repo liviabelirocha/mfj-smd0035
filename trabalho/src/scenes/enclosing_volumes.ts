@@ -210,23 +210,12 @@ const draw: Main = () => {
   for (const point of points) point.drawPoint();
 
   p5.stroke(255, 0, 0);
-  p5.text("AABB", aabb._min._x, aabb._min._y - 5);
   aabb.draw();
 
   p5.stroke(0, 255, 0);
-  p5.text(
-    "Circle",
-    circle._origin._x - circle._radius + 30,
-    circle._origin._y - circle._radius + 30
-  );
   circle.draw();
 
   p5.stroke(0, 0, 255);
-  p5.push();
-  p5.translate(obb._coords.p0._x, obb._coords.p0._y - 5);
-  p5.rotate(obb._angle);
-  p5.text("OOBB", 0, 0);
-  p5.pop();
   obb.drawWithCoords();
 };
 

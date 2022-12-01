@@ -3,7 +3,7 @@ import Helpers from "../helpers";
 import vectorIntersection from "./vector_intersection";
 import vectorSum from "./vector_sum";
 import matrixOps from "./matrix_ops";
-import objectCollision from "./obj_collision";
+import objectCollision from "./collision";
 import enclosingVolumes from "./enclosing_volumes";
 import pointBelongs from "./point_belongs";
 
@@ -22,6 +22,8 @@ export type Scene = {
   setup: Main;
   mousePressed: Main;
   reset: () => void;
+  mouseDragged?: Main;
+  mouseReleased?: Main;
 };
 
 const chooseScene = (scene: SceneTitle): Scene => {

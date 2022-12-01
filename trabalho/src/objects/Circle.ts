@@ -9,6 +9,11 @@ export class Circle extends CollisionShape {
   }
 
   draw() {
+    p5.text(
+      "Circle",
+      this._origin._x - this._radius,
+      this._origin._y - this._radius
+    );
     p5.circle(this._origin._x, this._origin._y, 2 * this._radius);
   }
 

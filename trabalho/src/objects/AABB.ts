@@ -17,6 +17,11 @@ export class AABB extends CollisionShape {
   }
 
   draw() {
+    p5.text(
+      "AABB",
+      this._origin._x - this._width / 2,
+      this._origin._y - 5 - this._height / 2
+    );
     p5.rect(
       this._origin._x - this._width / 2,
       this._origin._y - this._height / 2,

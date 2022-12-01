@@ -37,6 +37,12 @@ export class OBB extends CollisionShape {
     }
     p5.endShape("close");
     p5.pop();
+
+    p5.push();
+    p5.translate(corners[1]._x, corners[1]._y - 5);
+    p5.rotate(this._angle);
+    p5.text("OOBB", 0, 0);
+    p5.pop();
   }
 
   drawWithCoords() {
@@ -48,6 +54,12 @@ export class OBB extends CollisionShape {
     p5.vertex(p2._x, p2._y);
     p5.vertex(p3._x, p3._y);
     p5.endShape("close");
+
+    p5.push();
+    p5.translate(p0._x, p0._y - 5);
+    p5.rotate(this._angle);
+    p5.text("OOBB", 0, 0);
+    p5.pop();
   }
 
   getCorners() {

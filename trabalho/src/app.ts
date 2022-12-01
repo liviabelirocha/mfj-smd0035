@@ -10,9 +10,9 @@ import scenes, { SceneTitle } from "./scenes";
 import "./styles.scss";
 
 const possibleScenes: SceneTitle[] = [
-  "enclosingVolumes",
-  "pointBelongs",
   "objectCollision",
+  "pointBelongs",
+  "enclosingVolumes",
 ];
 
 let currentSceneIndex = 0;
@@ -24,7 +24,8 @@ const sketch = (p5: P5) => {
 
   const helpers = new Helpers({ mouse, drawCoordinates: true });
 
-  const { draw, mousePressed, setup, reset } = scenes(currentScene());
+  const { draw, mousePressed, setup, reset, mouseDragged, mouseReleased } =
+    scenes(currentScene());
 
   p5.setup = () => {
     const canvas = p5.createCanvas(450, 450);
@@ -47,6 +48,14 @@ const sketch = (p5: P5) => {
 
   p5.mousePressed = () => {
     mousePressed({ helpers });
+  };
+
+  p5.mouseDragged = () => {
+    if (mouseDragged) mouseDragged({ helpers });
+  };
+
+  p5.mouseReleased = () => {
+    if (mouseReleased) mouseReleased({ helpers });
   };
 };
 
