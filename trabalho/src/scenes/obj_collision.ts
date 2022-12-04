@@ -56,15 +56,15 @@ const test_col = function () {
     } else if (shape_target instanceof OBB) {
       doesCollide = CollisionTests.OBB_OBB(shape_mouse, shape_target);
     } else if (shape_target instanceof Circle) {
-      //doesCollide = CollisionTests.AABB_AABB(shape_mouse, shape_target);
-      doesCollide = false;
+      doesCollide = CollisionTests.OBB_Circle(shape_mouse, shape_target);
+      //doesCollide = false;
     }
   } else if (shape_mouse instanceof Circle) {
     if (shape_target instanceof AABB) {
       doesCollide = CollisionTests.AABB_Circle(shape_target, shape_mouse);
     } else if (shape_target instanceof OBB) {
-      //doesCollide = CollisionTests.AABB_AABB(shape_mouse, shape_target);
-      doesCollide = false;
+      doesCollide = CollisionTests.OBB_Circle(shape_target, shape_mouse);
+      //doesCollide = false;
     } else if (shape_target instanceof Circle) {
       doesCollide = CollisionTests.Circle_Circle(shape_mouse, shape_target);
     }

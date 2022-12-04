@@ -66,19 +66,8 @@ export class CollisionTests {
   }
 
   static AABB_Circle(a: AABB, b: Circle) {
-    //primeiro, metodo idiota, checar se um dos pontos do aabb estao no circulo
     const a_hw = a._width / 2;
     const a_hh = a._height / 2;
-    const aabb_corners = [
-      a._origin.add(new Vector2(a_hw, a_hh)),
-      a._origin.add(new Vector2(a_hw, a_hh)),
-      a._origin.add(new Vector2(a_hw, a_hh)),
-      a._origin.add(new Vector2(a_hw, a_hh)),
-    ];
-    for (let i = 0; i < aabb_corners.length; i++) {
-      if (b.isPointInside(aabb_corners[i])) return true;
-    }
-    //senão, testar se um segmento colide com o circulo
     //primeiro passo, achar a posição na borda do aabb mais proxima ao circulo
     const px = Helpers.clamp(
       b._origin._x,
@@ -93,6 +82,38 @@ export class CollisionTests {
     const pt = new Vector2(px, py);
     //testar se a distancia desse ponto ao centro do circulo é menor que o raio
     const distance = pt.sub(b._origin);
+    if (distance.mag() <= b._radius) return true;
+    return false;
+  }
+
+  static OBB_Circle(a: OBB, b: Circle) {
+    const a_hw = a._width / 2;
+    const a_hh = a._height / 2;
+    //mesma ideia do aabb-circle, mas primeiro transformamos a pos
+    //do circulo assim como no obb.isPointInside
+    //primeiro passo, achar a posição na borda do aabb mais proxima ao circulo
+
+    const angle = a._angle;
+    const center_dist = b._origin.sub(a._origin);
+    //rotacionar o plano de referencia do centro do circulo para o centro do obb
+    const rotated_b = new Vector2(
+      center_dist._x * Math.cos(angle) - center_dist._y * Math.sin(angle),
+      center_dist._x * Math.sin(angle) + center_dist._y * Math.cos(angle)
+    );
+    //no novo plano de referencia, pegar o ponto na borda do obb mais proximo
+    const px = Helpers.clamp(
+      rotated_b._x,
+      -a_hw, //parede da esquerda
+      a_hw //parede da direita
+    );
+    const py = Helpers.clamp(
+      rotated_b._y,
+      -a_hh, //parede de baixo
+      a_hh //parede de cima
+    );
+    const pt = new Vector2(px, py);
+    //testar se a distancia desse ponto ao centro do circulo é menor que o raio
+    const distance = pt.sub(rotated_b);
     if (distance.mag() <= b._radius) return true;
     return false;
   }
