@@ -28,7 +28,7 @@ const sketch = (p5: P5) => {
     scenes(currentScene());
 
   p5.setup = () => {
-    const canvas = p5.createCanvas(450, 450);
+    const canvas = p5.createCanvas(600, 600);
 
     reset();
     setup({ helpers });

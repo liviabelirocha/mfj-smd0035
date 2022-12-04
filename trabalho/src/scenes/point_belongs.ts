@@ -2,9 +2,9 @@ import { Main } from ".";
 import { Vector2 } from "../geometry";
 import { AABB, Circle, OBB } from "../objects";
 
-const aabb = new AABB(new Vector2(100, 120), 100, 100);
-const obb = new OBB(new Vector2(300, 120), 100, 120, 0.8);
-const circle = new Circle(new Vector2(200, 300), 70);
+const aabb = new AABB(new Vector2(150, 170), 200, 200);
+const obb = new OBB(new Vector2(430, 270), 180, 200, 0.8);
+const circle = new Circle(new Vector2(200, 450), 100);
 
 let point: Vector2;
 let collided: boolean;

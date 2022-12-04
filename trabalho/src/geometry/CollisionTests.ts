@@ -1,9 +1,8 @@
-import { Vector2, CollisionShape } from "../geometry";
+import { Vector2 } from "../geometry";
 import Helpers from "../helpers";
 import { AABB, OBB, Circle } from "../objects";
 
 export class CollisionTests {
-  //
   static AABB_AABB(a: AABB, b: AABB) {
     const distance = a._origin.sub(b._origin);
     //a distancia em cada eixo precisa ser menor que as metades dos tamanhos
@@ -30,38 +29,29 @@ export class CollisionTests {
       a._origin.add(new Vector2(-a_hw, a_hh)),
     ];
     //se um dos pontos da aabb estão dentro da obb, verdadeiro
-    for (let i = 0; i < aabb_corners.length; i++) {
+    for (let i = 0; i < aabb_corners.length; i++)
       if (b.isPointInside(aabb_corners[i])) return true;
-    }
+
     //testar os pontos da obb
-    const b_hw = b._width / 2;
-    const b_hh = b._height / 2;
     const obb_corners = b.getCorners();
     //se um dos pontos da aabb estão dentro da obb, verdadeiro
-    for (let i = 0; i < obb_corners.length; i++) {
+    for (let i = 0; i < obb_corners.length; i++)
       if (a.isPointInside(obb_corners[i])) return true;
-    }
 
-    // //test test
     // if (b.isPointInside(a._origin)) return true;
     return false;
   }
 
   static OBB_OBB(a: OBB, b: OBB) {
     //mesma ideia do aabb x obb, testar se um dos cantos de um está dentro do outro
-    const a_hw = a._width / 2;
-    const a_hh = a._height / 2;
     const a_corners = a.getCorners();
-    for (let i = 0; i < a_corners.length; i++) {
+    for (let i = 0; i < a_corners.length; i++)
       if (b.isPointInside(a_corners[i])) return true;
-    }
 
-    const b_hw = b._width / 2;
-    const b_hh = b._height / 2;
     const b_corners = b.getCorners();
-    for (let i = 0; i < b_corners.length; i++) {
+    for (let i = 0; i < b_corners.length; i++)
       if (a.isPointInside(b_corners[i])) return true;
-    }
+
     return false;
   }
 

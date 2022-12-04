@@ -10,7 +10,7 @@ let circle: Circle;
 let obb: OBB;
 
 const generateCloud = (helpers: Helpers) => {
-  points = helpers.randomPoints(pointsAmount, 60);
+  points = helpers.randomPoints(pointsAmount, 120);
   aabb = constructAABB(points);
   circle = constructCircle(points);
   obb = constructOBB(points);
